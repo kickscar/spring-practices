@@ -1,4 +1,4 @@
-index
+README
 
 ## Spring Practices
 
