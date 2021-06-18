@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="avengers"
+          class="videosystem.BlankDigitalVideoDisc"
+          c:title="Avengers"
+          c:studio="MARVEL"/>
+
+    <bean id="avengersInfinityWar"
+          class="videosystem.BlankDigitalVideoDisc"
+          c:title="Avengers Infinity War"
+          c:studio="MARVEL"/>
+
+    <bean id="avengersEndgame"
+          class="videosystem.BlankDigitalVideoDisc"
+          c:title="Avengers Endgame"
+          c:studio="MARVEL"/>
+
+    <bean id="dvdPlayer1" class="videosystem.DVDPlayer">
+        <constructor-arg ref="avengers"/>
+    </bean>
+
+    <bean id="dvdPlayer2"
+          class="videosystem.DVDPlayer"
+          c:digitalVideoDisc-ref="avengersInfinityWar" />
+
+    <bean id="dvdPlayer3"
+          class="videosystem.DVDPlayer"
+          c:_0-ref="avengersEndgame" />
+
+</beans>
