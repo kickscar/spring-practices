@@ -1,6 +1,5 @@
 package scanwiring.container;
 
-import scanwiring.conatiner.SimpleAnnotationConfigBeanFactory;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.stereotype.Controller;

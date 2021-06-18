@@ -1,4 +1,4 @@
-package scanwiring.conatiner;
+package scanwiring.container;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
@@ -29,35 +29,34 @@ public class SimpleAnnotationConfigBeanFactory implements BeanFactory {
     private Set<Class<? extends Annotation>> autowiredAnnotationTypes = new LinkedHashSet<>();
 
     public SimpleAnnotationConfigBeanFactory(String basePackage) {
-        autowiredAnnotationTypes.add(Autowired.class);
-
-        doScan(basePackage);
-        doAutowiring();
-    }
-
-    private void doScan(String packageName) {
         try {
-            final ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(true);
-            scanner.addIncludeFilter(new AssignableTypeFilter(Component.class));
-
-            final Set<BeanDefinition> beanDefinitions = scanner.findCandidateComponents(packageName);
-
-            for (BeanDefinition beanDefinition : beanDefinitions) {
-                final Class<?> clazz = Class.forName(beanDefinition.getBeanClassName());
-                if(clazz.getAnnotation(Component.class) != null) {
-                    Object bean = BeanUtils.instantiateClass(clazz);
-
-                    String clazzName = clazz.getSimpleName();
-                    mapBeans.put(Character.toLowerCase(clazzName.charAt(0)) + clazzName.substring(1), bean);
-                }
-            }
-        } catch(ClassNotFoundException e){
+            autowiredAnnotationTypes.add(Autowired.class);
+            doScan(basePackage);
+            doAutowiring();
+        } catch(Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void doAutowiring() throws BeanCreationException {
+    private void doScan(String packageName) throws ClassNotFoundException {
+        ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(true);
+        scanner.addIncludeFilter(new AssignableTypeFilter(Component.class));
 
+        // for only one depth package
+        Set<BeanDefinition> beanDefinitions = scanner.findCandidateComponents(packageName);
+
+        for (BeanDefinition beanDefinition : beanDefinitions) {
+            Class<?> clazz = Class.forName(beanDefinition.getBeanClassName());
+            if (clazz.getAnnotation(Component.class) != null) {
+                Object bean = BeanUtils.instantiateClass(clazz);
+
+                String clazzName = clazz.getSimpleName();
+                mapBeans.put(Character.toLowerCase(clazzName.charAt(0)) + clazzName.substring(1), bean);
+            }
+        }
+    }
+
+    private void doAutowiring() throws BeanCreationException {
         for (String beanName : mapBeans.keySet()) {
             Object bean = mapBeans.get(beanName);
             Class<?> clazz = bean.getClass();
@@ -70,10 +69,8 @@ public class SimpleAnnotationConfigBeanFactory implements BeanFactory {
             }
 
             ReflectionUtils.doWithLocalFields(clazz, new ReflectionUtils.FieldCallback() {
-
                 @Override
                 public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
-
                     MergedAnnotation<?> ann = null;
                     MergedAnnotations annotations = MergedAnnotations.from(field);
 
