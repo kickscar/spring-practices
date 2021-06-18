@@ -10,10 +10,8 @@ README
 ### 06. Application Security(Spring Security)
 ### 07. Data Access II(Spring JPA)
 ### 08. Data Caching(Spring Cache)
-### 09. Restful Web Service(Spring Restful)
+### 09. RESTful Web Service (Spring REST)
 ### 10. Batch Job(Spring Batch)
-### 11. Spring Asynchronous Programming
-### 12. Spring5 Reactive Programming
-### 13. Cloud Computing I(Spring Cloud for AWS)
-### 14. Cloud Computing II(Spring Cloud for GCP)
-### 15. Cloud Computing III(Spring Cloud for Kubernetes)
+### 11. Spring Asynchronous
+### 12. Spring5 Reactive
+### 13. Cloud Native I(Spring Cloud)
