@@ -1,15 +1,19 @@
-package ex02._02;
+package ex04;
 
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootConfiguration
+@Configuration
 public class HelloWorldApplication {
     @Bean
-    MyComponent myComponent() {
-        return new MyComponent();
+    ApplicationRunner applicationRunner() {
+        return (ApplicationArguments args) -> {
+            System.out.println("Hello World");
+        };
     }
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package ex02._02;
+package ex03;
 
 public class MyComponent {
 }
