@@ -1,4 +1,4 @@
-package ex02;
+package ex01;
 
 import ex01.MyApplication;
 import ex01.MyComponent;

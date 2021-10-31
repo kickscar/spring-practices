@@ -3,12 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <!-- 부모 스타터: 의존성 버젼 관리 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> <!-- 레포지토리에서 부모 검색 -->
     </parent>
+
     <groupId>springboot</groupId>
     <artifactId>helloworld</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -18,12 +20,14 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <!-- 스타터 의존성 -->
     <dependencies>
+        <!-- spring boot application basic library -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
+        <!-- test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -32,7 +36,9 @@
     </dependencies>
 
     <build>
+        <finalName>helloworld</finalName>
         <plugins>
+            <!-- 스프링 부트 메이븐 플러그인 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
