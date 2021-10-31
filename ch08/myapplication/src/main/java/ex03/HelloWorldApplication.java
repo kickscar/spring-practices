@@ -1,4 +1,4 @@
-package ex04;
+package ex03;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
