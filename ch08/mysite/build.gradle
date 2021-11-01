@@ -1,0 +1,28 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group 'springboot'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+project.archivesBaseName = 'mysite'
+project.version = ''
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'javax.servlet:jstl'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
