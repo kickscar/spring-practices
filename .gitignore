@@ -1,18 +1,42 @@
-# Project exclude paths
+## Mac
 **/.DS_Store
 
-**/.idea
-**/*.iml
+## JavaScript Project
+**/node_modules
+**/public/bundle.js
+**/public/main.js
+**/public/assets
+
+## Maven/Gradle Build Directories
+**/target
 **/.gradle/
 **/settings.gradle
 **/build/
 **/out
 
+## STS/Eclipse IDE
+**/.apt_generated
 **/.classpath
+**/.mvn
+**/.factorypath
 **/.project
 **/.settings
-**/target/
+**/.springBeans
+**/.sts4-cache
 
+## IntelliJ IDE
+**/.idea
+**/*.iws
+**/*.iml
+**/*.ipr
+
+## VS Code IDE
 **/.vscode
+**/.suo
+**/.ntvs*
+**/.njsproj
+**/.sln
+**/.sw?
 
-**/private-resources
+## Private Resources
+**/**/private-resources
