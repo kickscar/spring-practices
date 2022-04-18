@@ -1,7 +1,5 @@
 ## Spring Practices
 
-## Spring Practices
-
 ### 01. Core
 ### 02. Spring MVC(Web)
 ### 03. Data Access with JDBC
