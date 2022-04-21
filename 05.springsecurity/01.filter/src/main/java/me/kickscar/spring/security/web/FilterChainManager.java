@@ -1,13 +1,14 @@
 package me.kickscar.spring.security.web;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.AntPathMatcher;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Pattern;
 
 @Slf4j
 public class FilterChainManager implements Filter {
@@ -16,31 +17,48 @@ public class FilterChainManager implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-        AntPathMatcher pathMatcher = new AntPathMatcher();
-
+        // 1. setup filter chain
         for(String urlPattern : filterUrlPatternMap.keySet()) {
-            // 요청 URL과 매치되는 필터들을 filter chain에 등록
-            if(pathMatcher.match(urlPattern, httpServletRequest.getRequestURI())) {
-                log.debug("-----" + urlPattern + "--------" + httpServletRequest.getRequestURI() + "-----");
+            if(urlPatternMaches(urlPattern, ((HttpServletRequest)request).getRequestURI())) {
                 filterChain.addFilter(filterUrlPatternMap.get(urlPattern));
             }
         }
 
-        // filter chain 실행
+        // 2. invoke filter chain
         filterChain.doFilter(request, response);
 
-        // filter chain 초기화
+        // 3. release filter chain
         filterChain.release();
 
-        // original chain 실행
-        // FilterChainManager는 Proxy Filter 로 구현되었다.
-        // 1. 테스트를 위해서
-        // 2. Spring Security의 FilterChainProxy의 기본적인 작동 원리 흉내
+        // 4. invoke original filter chain
         chain.doFilter(request, response);
     }
 
     public void setFilterUrlPatternMap(Map filterUrlPatternMap) {
         this.filterUrlPatternMap = filterUrlPatternMap;
+    }
+
+    private boolean urlPatternMaches(String pattern, String url) {
+        String[] paths = pattern.split("/");
+        AtomicInteger index = new AtomicInteger();
+
+        String regExp = Arrays.asList(paths)
+                .stream()
+                .map(s -> {
+                    boolean isEnd = index.getAndIncrement() == paths.length - 1;
+
+                    if(s.equals("*")) {
+                        return  isEnd ? ".*" :"[^/]*";
+                    }
+
+                    if(s.startsWith("*.") && isEnd) {
+                        return  s.replaceAll("\\*.", ".*");
+                    }
+
+                    return s.replaceAll("\\*", "[^/]*");
+
+                }).reduce("", (r, s) -> r + ("".equals(s) ? "" : "/" + s));
+
+        return Pattern.matches("^" + regExp + "$", url);
     }
 }

@@ -6,10 +6,10 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<util:map id="filterMap" map-class="java.util.HashMap">
-		<entry key="/**" value-ref="filterAll"/>
-		<entry key="/me/**" value-ref="filterMe"/>
-		<entry key="/me/kickscar/**" value-ref="filterMeKickscar"/>
+	<util:map id="filterUrlPatternMap" map-class="java.util.HashMap">
+		<entry key="/*" value-ref="filterAll"/>
+		<entry key="/me/*" value-ref="filterMe"/>
+		<entry key="/me/kickscar/*" value-ref="filterMeKickscar"/>
 		<entry key="/me/kickscar/hello" value-ref="filterMeKickscarHello"/>
 	</util:map>
 
@@ -21,6 +21,6 @@
 	<bean
 		id="filterChainManager"
 		class="me.kickscar.spring.security.web.FilterChainManager"
-		p:filterUrlPatternMap-ref="filterMap" />
+		p:filterUrlPatternMap-ref="filterUrlPatternMap" />
 
 </beans>

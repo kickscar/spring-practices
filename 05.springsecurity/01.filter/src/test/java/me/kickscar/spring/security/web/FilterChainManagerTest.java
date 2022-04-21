@@ -14,6 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -37,6 +38,12 @@ public class FilterChainManagerTest {
 
     @Test
     public void test() throws Throwable {
-        mvc.perform(get("/me/kickscar/hello")).andExpect(status().isNotFound());
+        mvc
+            .perform(get("/me/kickscar/hello"))
+            .andExpect(status().isNotFound())
+            .andExpect(cookie().value("FilterAll", "Works"))
+            .andExpect(cookie().value("FilterMe", "Works"))
+            .andExpect(cookie().value("FilterMeKickscar", "Works"))
+            .andExpect(cookie().value("FilterMeKickscarHello", "Works"));
     }
 }

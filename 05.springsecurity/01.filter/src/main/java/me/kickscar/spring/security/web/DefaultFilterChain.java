@@ -32,7 +32,7 @@ public class DefaultFilterChain implements FilterChain {
 
     public void release() {
         this.filters.clear();
-        this.iterator = iterator;
+        this.iterator = null;
         this.servlet = null;
     }
 
