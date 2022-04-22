@@ -13,29 +13,52 @@ import java.util.regex.Pattern;
 @Slf4j
 public class FilterChainManager implements Filter {
     private Map<String, Filter> filterUrlPatternMap = new HashMap<String, Filter>();
-    private DefaultFilterChain filterChain = new DefaultFilterChain();
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        // 1. setup filter chain
+
+        FilterChainImpl filterChain = createFilterChain(request, null);
+
+        // Call the filter chain for this request
+        if(filterChain != null) {
+            filterChain.doFilter(request, response);
+        }
+
+        // Release the filter chain (if any) for this request
+        if(filterChain != null) {
+            filterChain.release();
+        }
+
+        // Call original filter chain
+        // NOTE:
+        // FilterChainManager is implemented as filter proxy for spring mvc test integrated
+        // This also calls the servlet's service() method
+        chain.doFilter(request, response);
+    }
+
+    public void setFilterUrlPatternMap(Map filterUrlPatternMap) {
+        this.filterUrlPatternMap = filterUrlPatternMap;
+    }
+
+    private FilterChainImpl createFilterChain(ServletRequest request, Servlet servlet) {
+        // If there is no servlet to execute, return null
+        // if (servlet == null) {
+        //    return null;
+        // }
+
+        // Create and initialize a filter chain object
+        FilterChainImpl filterChain = new FilterChainImpl();
+        filterChain.setServlet(servlet);
+
+        // Add filters that match on it's URL Pattern and Request URL
         for(String urlPattern : filterUrlPatternMap.keySet()) {
             if(urlPatternMaches(urlPattern, ((HttpServletRequest)request).getRequestURI())) {
                 filterChain.addFilter(filterUrlPatternMap.get(urlPattern));
             }
         }
 
-        // 2. invoke filter chain
-        filterChain.doFilter(request, response);
-
-        // 3. release filter chain
-        filterChain.release();
-
-        // 4. invoke original filter chain
-        chain.doFilter(request, response);
-    }
-
-    public void setFilterUrlPatternMap(Map filterUrlPatternMap) {
-        this.filterUrlPatternMap = filterUrlPatternMap;
+        // Return the completed filter chain
+        return filterChain;
     }
 
     private boolean urlPatternMaches(String pattern, String url) {

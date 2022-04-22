@@ -1,6 +1,5 @@
 package me.kickscar.spring.security.web;
 
-import me.kickscar.spring.security.web.FilterChainManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations={"classpath:me/kickscar/spring/security/web/applicationContext.xml"})
 @WebAppConfiguration
-public class FilterChainManagerTest {
+public class FilterChainTest {
     @Autowired
     private WebApplicationContext context;
 
