@@ -5065,7 +5065,7 @@
 											"top": 185,
 											"width": 259.009765625,
 											"height": 13,
-											"text": "+filterUrlPatternMap: Map<UrlPattern, FIlter>",
+											"text": "-filterUrlPatternMap: Map<UrlPattern, FIlter>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -5099,7 +5099,7 @@
 											"top": 208,
 											"width": 259.009765625,
 											"height": 13,
-											"text": "+createFilterChain(request, servlet)",
+											"text": "-createFilterChain(request, servlet)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -7209,7 +7209,7 @@
 									"hostEdge": {
 										"$ref": "AAAAAAGAT8JE37E6yO8="
 									},
-									"text": "+filterUrlPatternMap"
+									"text": "-filterUrlPatternMap"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -7570,6 +7570,7 @@
 								"reference": {
 									"$ref": "AAAAAAGAP7gByg8gM1A="
 								},
+								"visibility": "private",
 								"multiplicity": "*"
 							}
 						},
@@ -7596,6 +7597,7 @@
 								"$ref": "AAAAAAGAT2Hc0XQk1vU="
 							},
 							"name": "filterUrlPatternMap",
+							"visibility": "private",
 							"type": "Map<UrlPattern, FIlter>"
 						}
 					],
@@ -7607,6 +7609,7 @@
 								"$ref": "AAAAAAGAT2Hc0XQk1vU="
 							},
 							"name": "createFilterChain",
+							"visibility": "private",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
