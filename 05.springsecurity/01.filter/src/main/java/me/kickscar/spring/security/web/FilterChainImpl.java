@@ -15,10 +15,6 @@ public class FilterChainImpl implements FilterChain {
     // This iterator is called the first time that doFilter() is called.
     private Iterator iterator = null;
 
-    // The servlet instance to be executed by this chain.
-    // Always null set in this example of implementation.
-    private Servlet servlet;
-
     // Invoke the next filter in this chain, passing the specified request and response.
     @Override
     public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
@@ -42,11 +38,5 @@ public class FilterChainImpl implements FilterChain {
     public void release() {
         filters.clear();
         iterator = null;
-        servlet = null;
-    }
-
-    // Set the servlet that will be executed at the end of this chain.
-    public void setServlet(Servlet servlet) {
-        this.servlet = servlet;
     }
 }

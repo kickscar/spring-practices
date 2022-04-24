@@ -17,7 +17,7 @@ public class FilterChainManager implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        FilterChainImpl filterChain = createFilterChain(request, null);
+        FilterChainImpl filterChain = createFilterChain(request);
 
         // Call the filter chain for this request
         if(filterChain != null) {
@@ -40,7 +40,7 @@ public class FilterChainManager implements Filter {
         this.filterUrlPatternMap = filterUrlPatternMap;
     }
 
-    private FilterChainImpl createFilterChain(ServletRequest request, Servlet servlet) {
+    private FilterChainImpl createFilterChain(ServletRequest request) {
         // If there is no servlet to execute, return null
         // if (servlet == null) {
         //    return null;
@@ -48,7 +48,6 @@ public class FilterChainManager implements Filter {
 
         // Create and initialize a filter chain object
         FilterChainImpl filterChain = new FilterChainImpl();
-        filterChain.setServlet(servlet);
 
         // Add filters that match on it's URL Pattern and Request URL
         for(String urlPattern : filterUrlPatternMap.keySet()) {
