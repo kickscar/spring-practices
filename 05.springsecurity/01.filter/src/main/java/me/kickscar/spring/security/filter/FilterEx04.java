@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class FilterMeKickscarHello implements Filter {
+public class FilterEx04 implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         chain.doFilter(request, response);
 
-        Cookie cookie = new Cookie("FilterMeKickscarHello", "Works");
+        Cookie cookie = new Cookie("FilterEx04", "Works");
         cookie.setPath(((HttpServletRequest)request).getContextPath());
         cookie.setMaxAge(60); // 1 minute
 

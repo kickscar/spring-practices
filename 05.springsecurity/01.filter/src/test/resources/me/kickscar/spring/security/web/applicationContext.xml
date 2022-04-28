@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:p="http://www.springframework.org/schema/p"
-	   xmlns:util="http://www.springframework.org/schema/util"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<util:map id="filterUrlPatternMap" map-class="java.util.HashMap">
-		<entry key="/*" value-ref="filterAll"/>
-		<entry key="/me/*" value-ref="filterMe"/>
-		<entry key="/me/kickscar/*" value-ref="filterMeKickscar"/>
-		<entry key="/me/kickscar/hello" value-ref="filterMeKickscarHello"/>
-	</util:map>
-
-	<bean id="filterAll" class="me.kickscar.spring.security.filter.FilterAll" />
-	<bean id="filterMe" class="me.kickscar.spring.security.filter.FilterMe" />
-	<bean id="filterMeKickscar" class="me.kickscar.spring.security.filter.FilterMeKickscar" />
-	<bean id="filterMeKickscarHello" class="me.kickscar.spring.security.filter.FilterMeKickscarHello" />
-
-	<bean
-		id="filterChainManager"
-		class="me.kickscar.spring.security.web.FilterChainManager"
-		p:filterUrlPatternMap-ref="filterUrlPatternMap" />
+	<bean id="filterChainManager" class="me.kickscar.spring.security.web.FilterChainManager">
+		<property name="filterConfigs">
+			<array>
+				<bean
+					class="me.kickscar.spring.security.web.FilterConfigImpl"
+					c:filterName="ex01"
+					c:filterClass="me.kickscar.spring.security.filter.FilterEx01"
+					c:urlPattern="/*"/>
+				<bean
+					class="me.kickscar.spring.security.web.FilterConfigImpl"
+					c:filterName="ex02"
+					c:filterClass="me.kickscar.spring.security.filter.FilterEx02"
+					c:urlPattern="/ex02"/>
+				<bean
+					class="me.kickscar.spring.security.web.FilterConfigImpl"
+					c:filterName="ex03"
+					c:filterClass="me.kickscar.spring.security.filter.FilterEx03"
+					c:urlPattern="/ex03/*"/>
+				<bean
+					class="me.kickscar.spring.security.web.FilterConfigImpl"
+					c:filterName="ex04"
+					c:filterClass="me.kickscar.spring.security.filter.FilterEx04"
+					c:urlPattern="/ex04/test"/>
+			</array>
+		</property>
+	</bean>
 
 </beans>

@@ -5,14 +5,16 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 @Slf4j
 public class FilterChainManager implements Filter {
-    private Map<String, Filter> filterUrlPatternMap = new HashMap<String, Filter>();
+    private FilterConfigImpl[] filterConfigs;
+
+    public void setFilterConfigs(FilterConfigImpl[] filterConfigs) {
+        this.filterConfigs = filterConfigs;
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -36,23 +38,15 @@ public class FilterChainManager implements Filter {
         chain.doFilter(request, response);
     }
 
-    public void setFilterUrlPatternMap(Map filterUrlPatternMap) {
-        this.filterUrlPatternMap = filterUrlPatternMap;
-    }
-
     private FilterChainImpl createFilterChain(ServletRequest request) {
-        // If there is no servlet to execute, return null
-        // if (servlet == null) {
-        //    return null;
-        // }
 
         // Create and initialize a filter chain object
         FilterChainImpl filterChain = new FilterChainImpl();
 
         // Add filters that match on it's URL Pattern and Request URL
-        for(String urlPattern : filterUrlPatternMap.keySet()) {
-            if(urlPatternMaches(urlPattern, ((HttpServletRequest)request).getRequestURI())) {
-                filterChain.addFilter(filterUrlPatternMap.get(urlPattern));
+        for(FilterConfigImpl filterConfig : filterConfigs) {
+            if(urlPatternMaches(filterConfig.getUrlPattern(), ((HttpServletRequest)request).getRequestURI())) {
+                filterChain.addFilter(filterConfig.getFilter());
             }
         }
 
