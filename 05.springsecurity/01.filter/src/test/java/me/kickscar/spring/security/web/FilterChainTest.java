@@ -35,30 +35,32 @@ public class FilterChainTest {
     }
 
     @Test
-    public void testFilterEx01AndEx02() throws Throwable {
+    public void testFilterEx00AndEx01() throws Throwable {
         mvc
-            .perform(get("/ex02"))
+            .perform(get("/ex01/test"))
             .andExpect(status().isNotFound())
+            .andExpect(cookie().value("FilterEx00", "Works"))
+            .andExpect(cookie().value("FilterEx01", "Works"));
+    }
+
+    @Test
+    public void testFilterexEx00AndEx01AndEx02() throws Throwable {
+        mvc
+            .perform(get("/ex01/ex02/test"))
+            .andExpect(status().isNotFound())
+            .andExpect(cookie().value("FilterEx00", "Works"))
             .andExpect(cookie().value("FilterEx01", "Works"))
             .andExpect(cookie().value("FilterEx02", "Works"));
     }
 
     @Test
-    public void testFilterexEx01AndEx03() throws Throwable {
+    public void testFilterEx00AndEx01AndEx02AndEx03() throws Throwable {
         mvc
-            .perform(get("/ex03/a/b/c"))
+            .perform(get("/ex01/ex02/ex03/test"))
             .andExpect(status().isNotFound())
+            .andExpect(cookie().value("FilterEx00", "Works"))
             .andExpect(cookie().value("FilterEx01", "Works"))
+            .andExpect(cookie().value("FilterEx02", "Works"))
             .andExpect(cookie().value("FilterEx03", "Works"));
     }
-
-    @Test
-    public void testFilterEx01AndEx04() throws Throwable {
-        mvc
-            .perform(get("/ex04/test"))
-            .andExpect(status().isNotFound())
-            .andExpect(cookie().value("FilterEx01", "Works"))
-            .andExpect(cookie().value("FilterEx04", "Works"));
-    }
-
 }

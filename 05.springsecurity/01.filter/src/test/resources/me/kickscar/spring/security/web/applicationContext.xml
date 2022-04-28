@@ -9,24 +9,24 @@
 			<array>
 				<bean
 					class="me.kickscar.spring.security.web.FilterConfigImpl"
+					c:filterName="ex00"
+					c:filterClass="me.kickscar.spring.security.filter.FilterEx00"
+					c:urlPattern="/*"/>
+				<bean
+					class="me.kickscar.spring.security.web.FilterConfigImpl"
 					c:filterName="ex01"
 					c:filterClass="me.kickscar.spring.security.filter.FilterEx01"
-					c:urlPattern="/*"/>
+					c:urlPattern="/ex01/*"/>
 				<bean
 					class="me.kickscar.spring.security.web.FilterConfigImpl"
 					c:filterName="ex02"
 					c:filterClass="me.kickscar.spring.security.filter.FilterEx02"
-					c:urlPattern="/ex02"/>
+					c:urlPattern="/ex01/ex02/*"/>
 				<bean
 					class="me.kickscar.spring.security.web.FilterConfigImpl"
 					c:filterName="ex03"
 					c:filterClass="me.kickscar.spring.security.filter.FilterEx03"
-					c:urlPattern="/ex03/*"/>
-				<bean
-					class="me.kickscar.spring.security.web.FilterConfigImpl"
-					c:filterName="ex04"
-					c:filterClass="me.kickscar.spring.security.filter.FilterEx04"
-					c:urlPattern="/ex04/test"/>
+					c:urlPattern="/ex01/ex02/ex03/*"/>
 			</array>
 		</property>
 	</bean>
