@@ -46,7 +46,7 @@ public class FilterChainManager implements Filter {
         // Add filters that match on it's URL Pattern and Request URL
         for(FilterConfigImpl filterConfig : filterConfigs) {
             if(urlPatternMaches(filterConfig.getUrlPattern(), ((HttpServletRequest)request).getRequestURI())) {
-                filterChain.addFilter(filterConfig.getFilter());
+                filterChain.addFilter(filterConfig);
             }
         }
 

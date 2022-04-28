@@ -4,7 +4,6 @@ import javax.servlet.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class FilterChainImpl implements FilterChain {
 
@@ -23,15 +22,18 @@ public class FilterChainImpl implements FilterChain {
         }
 
         if (iterator.hasNext()) {
-            Filter filter = (Filter)iterator.next();
+            FilterConfigImpl filterConfig = (FilterConfigImpl)iterator.next();
+            Filter filter = filterConfig.getFilter();
+
             filter.doFilter(request, response, this);
+
             return;
         }
     }
 
     // Add a filter to the set of filters that will be executed in this chain.
-    public void addFilter(Filter filter) {
-        this.filters.add(filter);
+    public void addFilter(FilterConfigImpl filterConfig) {
+        this.filters.add(filterConfig);
     }
 
     // Release references to the filters and wrapper executed by this chain.
