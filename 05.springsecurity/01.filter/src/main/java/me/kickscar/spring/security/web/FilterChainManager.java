@@ -18,16 +18,13 @@ public class FilterChainManager implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        FilterChainImpl filterChain = createFilterChain(((HttpServletRequest)request).getRequestURI());
 
-        FilterChainImpl filterChain = createFilterChain(request);
-
-        // Call the filter chain for this request
         if(filterChain != null) {
+            // Call the filter chain for this request
             filterChain.doFilter(request, response);
-        }
 
-        // Release the filter chain (if any) for this request
-        if(filterChain != null) {
+            // Release the filter chain (if any) for this request
             filterChain.release();
         }
 
@@ -38,14 +35,13 @@ public class FilterChainManager implements Filter {
         chain.doFilter(request, response);
     }
 
-    private FilterChainImpl createFilterChain(ServletRequest request) {
-
+    private FilterChainImpl createFilterChain(String urlPattern) {
         // Create and initialize a filter chain object
         FilterChainImpl filterChain = new FilterChainImpl();
 
         // Add filters that match on it's URL Pattern and Request URL
         for(FilterConfigImpl filterConfig : filterConfigs) {
-            if(urlPatternMaches(filterConfig.getUrlPattern(), ((HttpServletRequest)request).getRequestURI())) {
+            if(urlPatternMaches(filterConfig.getUrlPattern(), urlPattern)) {
                 filterChain.addFilter(filterConfig);
             }
         }
