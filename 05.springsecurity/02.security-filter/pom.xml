@@ -4,18 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.kickscar.spring.security</groupId>
-  <artifactId>filter-ex02</artifactId>
+  <artifactId>security-filter</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-
-  <name>filter-ex02</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
-    <org.springframework-version>5.3.18</org.springframework-version>
+    <org.springframework-version>5.3.19</org.springframework-version>
     <org.springframework.security-version>5.6.2</org.springframework.security-version>
   </properties>
 
@@ -97,8 +94,4 @@
       <version>1.2.11</version>
     </dependency>
   </dependencies>
-
-  <build>
-    <finalName>filters</finalName>
-  </build>
 </project>

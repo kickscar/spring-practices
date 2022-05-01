@@ -29,9 +29,11 @@ public class FilterChainProxyTest {
     @Autowired
     private WebApplicationContext context;
 
+    // private MockMvc mockMvc;
+
     @BeforeEach
     public void setup() {
-//        mvc = MockMvcBuilders
+//        mockMvc = MockMvcBuilders
 //                .webAppContextSetup(context)
 //                .apply(springSecurity())
 //                .build();
