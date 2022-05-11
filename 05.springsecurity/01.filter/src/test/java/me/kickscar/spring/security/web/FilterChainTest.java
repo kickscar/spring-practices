@@ -31,7 +31,8 @@ public class FilterChainTest {
     @BeforeEach
     public void setup() {
         mvc = MockMvcBuilders
-                .webAppContextSetup(context).addFilter(new DelegatingFilterProxy(filterChainManager), "/*")
+                .webAppContextSetup(context)
+                .addFilter(new DelegatingFilterProxy(filterChainManager), "/*")
                 .build();
     }
 
