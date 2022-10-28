@@ -32,7 +32,11 @@ public class FilterConfigImpl implements FilterConfig {
         }
 
         try {
-            filter = (Filter)Class.forName(filterClass).getDeclaredConstructor().newInstance();
+            filter = (Filter)Class
+                .forName(filterClass)
+                .getDeclaredConstructor()
+                .newInstance();
+
         } catch(Exception ex) {
             throw new RuntimeException(ex);
         }

@@ -30,7 +30,7 @@ public class FilterChainManager implements Filter {
 
         // Call original filter chain
         // NOTE:
-        // FilterChainManager is implemented as filter proxy for spring mvc test integrated
+        // FilterChainManager is implemented as filter for spring mvc test integrated
         // This also calls the servlet's service() method
         chain.doFilter(request, response);
     }
