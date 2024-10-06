@@ -5,8 +5,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MyComponent {
-    @Autowired
-    private YourComponent yourComponent;
+    private final YourComponent yourComponent;
+
+    public MyComponent(YourComponent yourComponent) {
+        this.yourComponent = yourComponent;
+    }
 
     public YourComponent getYourComponent(){
         return yourComponent;
