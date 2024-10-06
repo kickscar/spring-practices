@@ -4,7 +4,7 @@ plugins {
 
 group 'me.kickscar.spring.core'
 version '1.0-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 project.archivesBaseName = '01.DI'
 project.version = ''
@@ -16,7 +16,7 @@ repositories {
 dependencies {
     implementation group: 'org.springframework', name: 'spring-context', version: '5.2.12.RELEASE'
     implementation group: 'javax.inject', name: 'javax.inject', version: '1'
-    testCompile 'com.github.blindpirate:junit5-capture-system-output-extension:0.1.1'
+
     testImplementation group: 'org.springframework', name: 'spring-test', version: '5.2.12.RELEASE'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'

@@ -10,7 +10,7 @@
 				<bean
 					class="me.kickscar.spring.security.web.FilterConfigImpl"
 					c:filterName="ex00"
-					c:filterClass="me.kickscar.spring.security.filter.FilterEx00"
+					c:filterClass="me.kickscar.spring.security.filter.MySecurityFilter"
 					c:urlPattern="/*"/>
 				<bean
 					class="me.kickscar.spring.security.web.FilterConfigImpl"
