@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class App {
 	
 	public static void ex01() {
-		File[] hiddenFiles = new File("C:/").listFiles(new FileFilter() {
+		File[] hiddenFiles = new File("/").listFiles(new FileFilter() {
 			@Override
 			public boolean accept(File pathname) {
 				return pathname.isHidden();
@@ -18,7 +18,7 @@ public class App {
 	}
 	
 	public static void ex02() {
-		File[] hiddenFiles = new File("C:/").listFiles(File::isHidden);
+		File[] hiddenFiles = new File("/").listFiles(File::isHidden);
 		
 		System.out.println(Arrays.toString(hiddenFiles));
 	}
